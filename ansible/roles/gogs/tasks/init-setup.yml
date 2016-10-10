@@ -4,12 +4,20 @@
     path: "{{ gogs_user_home }}/{{ gogs_service_script_path }}"
     mode: 0755
 
-- name: Symlink Gogs binary and startup scripts.
+- name: Symlink Gogs binary.
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    state: link
+    state: "{{ item.state }}"
   with_items:
-    - { src: "{{ gogs_user_home }}/gogs/gogs", dest: "/usr/local/bin/gogs" }
+    - { src: "{{ gogs_user_home }}/gogs/gogs", dest: "/usr/local/bin/gogs", state: "link" }
+  notify: restart gogs
+
+- name: Copy systemd script
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: true
+  with_items:
     - { src: "{{ gogs_user_home }}/{{ gogs_service_script_path }}" , dest: "/etc/systemd/system/gogs.service" }
   notify: restart gogs
