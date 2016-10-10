@@ -1,0 +1,2 @@
+ansible -i hosts all -m ping -u ubuntu -v --ssh-extra-args="-i ~/.ssh/id_rsa"
+ansible-playbook deploy.yml -i hosts -u ubuntu -v --ssh-extra-args="-i ~/.ssh/id_rsa"
