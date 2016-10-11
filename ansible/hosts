@@ -1,1 +1,2 @@
-gitserver ansible_ssh_host=13.73.114.248
+[gitservers]
+13.73.119.111 ansible_user=ubuntu

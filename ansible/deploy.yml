@@ -1,6 +1,5 @@
 ---
-- hosts: gitserver
-  remote_user: ubuntu
+- hosts: gitservers
   become: yes
   roles:
     - role: gogs
