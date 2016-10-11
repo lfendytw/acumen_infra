@@ -29,6 +29,15 @@
     copy: no
   when: gogs_bin.stat.islnk is not defined
 
+- include_vars: secrets.crypt
+- name: Copy gogs configurations
+  template:
+    src: "gogs/custom/conf/app.ini.j2"
+    dest: "{{ gogs_user_home }}/gogs/custom/conf/app.ini"
+    group: "{{ gogs_user }}"
+    owner: "{{ gogs_user }}"
+  notify: restart gogs
+
 - include: gogs-git.yml
 - include: init-setup.yml
 
