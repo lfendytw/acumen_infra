@@ -1,1 +1,2 @@
 *.crypt filter=git-crypt diff=git-crypt
+azure/azuredeploy.parameters.json filter=git-crypt diff=git-crypt
