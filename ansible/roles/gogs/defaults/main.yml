@@ -1,5 +1,6 @@
 ---
 gogs_user: git
+gogs_user_uid: 1001
 gogs_user_home: /home/git
 gogs_binary_url: https://github.com/gogits/gogs/releases/download/v0.9.97/linux_amd64.tar.gz
 gogs_http_port: "3000"
@@ -10,3 +11,4 @@ gogs_service_script_path: gogs/scripts/systemd/gogs.service
 git_packages:
   - git
   - git-svn
+azure_data_disk_uid: UUID=1735d479-acd5-48c9-a7cd-e221a352526f

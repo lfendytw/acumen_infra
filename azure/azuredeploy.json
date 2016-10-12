@@ -19,6 +19,12 @@
       "metadata": {
         "description": "Configure all linux machines with the SSH RSA public key string.  Your key should include three parts, for example 'ssh-rsa AAAAB...snip...UcyupgH azureuser@linuxvm'"
       }
+    },
+    "dataDiskVhdUri": {
+      "type": "string",
+      "metadata": {
+        "description": "Uri of the data VHD"
+      }
     }
   },
   "variables": {
@@ -160,13 +166,13 @@
           },
           "dataDisks": [
             {
-              "name": "datadisk1",
-              "diskSizeGB": "100",
-              "lun": 0,
+              "lun": 1,
+              "name": "gitdata",
+              "caching": "ReadWrite",
               "vhd": {
-                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('dataDisk1VhdName'),'.vhd')]"
+                "uri": "[parameters('dataDiskVhdUri')]"
               },
-              "createOption": "Empty"
+              "createOption": "Attach"
             }
           ]
         },

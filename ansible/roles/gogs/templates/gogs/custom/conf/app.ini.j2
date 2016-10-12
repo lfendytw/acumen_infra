@@ -9,10 +9,10 @@ NAME     = gogs
 USER     = root
 PASSWD   =
 SSL_MODE = disable
-PATH     = data/gogs.db
+PATH     = /data/gogs/gogs.db
 
 [repository]
-ROOT = /home/git/gogs-repositories
+ROOT = /data/gogs/gogs-repositories
 
 [server]
 DOMAIN       = gitsupercool.australiasoutheast.cloudapp.azure.com
@@ -42,7 +42,7 @@ PROVIDER = file
 [log]
 MODE      = file
 LEVEL     = Info
-ROOT_PATH = /home/git/gogs/log
+ROOT_PATH = /data/gogs/log
 
 [security]
 INSTALL_LOCK = true

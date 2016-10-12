@@ -7,6 +7,7 @@
     name: "{{ gogs_user }}"
     comment: Gogs
     home: "{{ gogs_user_home }}"
+    uid: "{{ gogs_user_uid }}"
 
 - name: Check if Gogs is already installed.
   stat: path=/usr/local/bin/gogs
@@ -29,6 +30,21 @@
     copy: no
   when: gogs_bin.stat.islnk is not defined
 
+- include: gogs-git.yml
+- include: init-setup.yml
+- include: azure_mount_disk.yml
+
+- name: Create Gogs log and custom conf folder.
+  file:
+    path: "{{ gogs_user_home }}{{ item }}"
+    recurse: yes
+    state: directory
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_user }}"
+    mode: 0755
+  with_items:
+      - "/gogs/custom/conf"
+
 - include_vars: secrets.crypt
 - name: Copy gogs configurations
   template:
@@ -38,16 +54,6 @@
     owner: "{{ gogs_user }}"
   notify: restart gogs
 
-- include: gogs-git.yml
-- include: init-setup.yml
-
-- name: Create Gogs log folder.
-  file:
-    path: "{{ gogs_user_home }}/gogs/log"
-    state: directory
-    owner: "{{ gogs_user }}"
-    group: "{{ gogs_user }}"
-    mode: 0755
 
 - name: Ensure Gogs is running.
   service: name=gogs state=started enabled=yes

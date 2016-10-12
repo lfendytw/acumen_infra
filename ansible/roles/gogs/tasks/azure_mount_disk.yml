@@ -1,0 +1,24 @@
+---
+- name: Create data folder.
+  file:
+    path: /data
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Create gogs data folder.
+  file:
+    path: /data/gogs
+    state: directory
+    owner: "{{ gogs_user }}"
+    group: "{{ gogs_user }}"
+    mode: 0755
+
+- name: Mount up git data device by UUID
+  mount:
+    name: /data/gogs
+    src: "{{ azure_data_disk_uid }}"
+    fstype: ext4
+    opts: defaults
+    state: mounted
